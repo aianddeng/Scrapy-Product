@@ -1,0 +1,21 @@
+{
+  "name": "Scrapy",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@types/axios": "^0.14.0",
+    "axios": "^0.21.1",
+    "cheerio": "^1.0.0-rc.5",
+    "https": "^1.0.0",
+    "mongoose": "^5.11.19",
+    "node-xlsx": "^0.16.1",
+    "proxy-chain": "^0.4.7",
+    "puppeteer": "^8.0.0",
+    "puppeteer-page-proxy": "^1.2.8",
+    "tunnel": "^0.0.6"
+  },
+  "devDependencies": {
+    "@types/tunnel": "^0.0.2"
+  }
+}
