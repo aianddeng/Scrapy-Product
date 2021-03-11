@@ -10,8 +10,17 @@ const modelInit = async () => {
         status: {
             type: String,
             default: 'waiting',
-            required: true,
         },
+        category: {
+            type: String,
+            required: true
+        },
+        type: {
+            type: Number,
+            default: 0,
+            min: -1,
+            max: 1
+        }
     }, {
         versionKey: false,
         timestamps: true
@@ -20,6 +29,11 @@ const modelInit = async () => {
     const taskModel = mongoose.model('tasks', taskSchema);
 
     const infoSchema = await mongoose.Schema({
+        url: {
+            type: String,
+            unique: true,
+            required: true
+        },
         name: {
             type: String,
             required: true

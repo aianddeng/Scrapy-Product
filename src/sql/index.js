@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 (async () => {
-    const base_mongodb_url = 'mongodb://localhost:27017/scrapy_tasks'
+    const base_mongodb_url = 'mongodb://localhost:27017/ai_scrapy_tasks_new'
 
     mongoose.Promise = Promise;
 

@@ -34,6 +34,7 @@ class Page {
                 headers: {
                     "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_3_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.72 Safari/537.36 Edg/89.0.774.45"
                 },
+                maxRedirects: 0,
                 timeout: 10 * 1000
             }, url.startsWith('https') ? {
                 httpsAgent: tunnelProxy,
@@ -86,7 +87,7 @@ class Page {
 
         // await useProxy(page, urlProxy.url);
         await page.goto(url, {
-            timeout: 60 * 1000,
+            timeout: 30 * 1000,
             waitUntil: 'domcontentloaded'
         });
 
@@ -113,7 +114,7 @@ class Page {
                 break;
         }
 
-        Page.save_to_file(url.split('/').pop(), html);
+        // Page.save_to_file(url.split('/').pop(), html);
 
         return Page.parse_to_jquery(html);
     }
