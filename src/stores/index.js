@@ -5,6 +5,12 @@ const hanleCollect = [
             'www.zappos.com'
         ],
         handle: basePath + 'zappos' + '.js'
+    },
+    {
+        origin: [
+            'www.ebay.com'
+        ],
+        handle: basePath + 'ebay' + '.js'
     }
 ]
 

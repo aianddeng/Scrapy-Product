@@ -1,4 +1,5 @@
 const Helpers = require('./Helpers');
+const mongoose = require('./sql');
 const modelInit = require('./sql/model');
 
 (async () => {
@@ -9,21 +10,24 @@ const modelInit = require('./sql/model');
     const fullList = await infoModel.find({});
 
     const categories = Array.from(new Set(
-        fullList.map(el => el.category)
+        fullList.map(el => el.category).map(el => el.slice(0, 30)).map(el => el.replace(/(\/|\\|\?|\*|\[|\])/g, ''))
     ));
 
     const data = {};
     categories.forEach(category => {
-        data[category] = fullList
+        const lins = fullList
             .filter(el => el.name && el.description && el.path && el.category)
             .filter(el => el.category === category)
             .map(
                 el => ({
                     name: el.name,
                     description: el.description,
-                    path: el.path.join('/')
+                    path: Array.from(new Set(el.path)).join('/')
                 })
             );
+        if (lins && lins.length) {
+            data[category] = lins;
+        }
     })
 
 
@@ -32,5 +36,7 @@ const modelInit = require('./sql/model');
     true
         && Object.keys(data).length
         && Object.values(data).length
-        && await Helpers.writeToExcel(data)
+        && await Helpers.writeToExcel(data);
+
+    await mongoose.disconnect();
 })();

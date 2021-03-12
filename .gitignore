@@ -2,3 +2,4 @@ node_modules
 yarn.lock
 logger
 yarn-error.log
+Products.xls

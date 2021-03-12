@@ -77,19 +77,19 @@ class Page {
         let page = null;
         try {
             page = await Page.browser.newPage();
+            // await useProxy(page, urlProxy.url);
+            await page.goto(url, {
+                timeout: 30 * 1000,
+                waitUntil: 'domcontentloaded'
+            });
         } catch (e) {
             console.error(`Error: ${e.code} <${tries}>`);
             if (tries === 3) {
                 return '<div>NOT FOUND</div>';
             }
+            await new Promise(resolve => setTimeout(resolve(), 10000));
             return await Page.puppeteer_load(url, ++tries)
         }
-
-        // await useProxy(page, urlProxy.url);
-        await page.goto(url, {
-            timeout: 30 * 1000,
-            waitUntil: 'domcontentloaded'
-        });
 
         const data = await page.content();
         await page.close()

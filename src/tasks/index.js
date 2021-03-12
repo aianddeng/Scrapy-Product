@@ -13,7 +13,7 @@ class Target {
     }
 }
 
-// const list = Target.loadList().filter(el=>el.store==='ebay');
-// console.log(list);
+const list = Target.loadList().filter(el=>el.store==='ebay');
+console.log(list);
 
 module.exports = Target;
