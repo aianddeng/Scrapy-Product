@@ -268,7 +268,9 @@ const main = async targets => {
             );
 
             // 等待1秒
-            await new Promise(resolve => setTimeout(resolve, 2 * 1000));
+            const uiTask = taskList.map(el => el.url).filter(url => url.match(/^https:\/\/www\.ebay\.com\/(b|sch)\/(.+)/));
+            
+            await new Promise(resolve => setTimeout(resolve, 0.6 * 1000 + (uiTask.length * 1.5)));
         }
     }
 }
