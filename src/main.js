@@ -72,8 +72,8 @@ const main = async targets => {
         while (taskList.length + oldTaskList.length) {
             // 限制并发数量
             const currentList = oldTaskList.length
-                ? oldTaskList.splice(0, 1)
-                : taskList.splice(0, 1);
+                ? oldTaskList.splice(0, 4)
+                : taskList.splice(0, 4);
 
             // 改变状态
             await taskModel.updateMany({
@@ -92,7 +92,7 @@ const main = async targets => {
                 })
             );
 
-            // 等待1秒
+            // axios请求间隔一秒，puppeteer请求间隔每个再加1.5秒。
             const uiTask = currentList.map(
                 el => el.url
             ).filter(
