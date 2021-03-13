@@ -44,7 +44,7 @@ class Page {
 
             return data;
         } catch (e) {
-            console.error(`Error: ${e.code} <${tries}>`);
+            console.error(`Error: ${e.code || e.response && e.response.statusText} <${tries}>`);
             if (tries === 3) {
                 return '<div>NOT FOUND</div>';
                 // return `<body><fatcoupon-error>${JSON.stringify(e)}</fatcoupon-error></body>`;
@@ -77,6 +77,7 @@ class Page {
         let page = null;
         try {
             page = await Page.browser.newPage();
+            await page.setUserAgent('"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_3_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.72 Safari/537.36 Edg/89.0.774.45"');
             // await useProxy(page, urlProxy.url);
             await page.goto(url, {
                 timeout: 30 * 1000,
