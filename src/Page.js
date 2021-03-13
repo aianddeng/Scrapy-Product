@@ -45,11 +45,12 @@ class Page {
             return data;
         } catch (e) {
             console.error(`Error: ${e.code || e.response && e.response.statusText} <${tries}>`);
-            if (tries === 3) {
-                return '<div>NOT FOUND</div>';
-                // return `<body><fatcoupon-error>${JSON.stringify(e)}</fatcoupon-error></body>`;
+
+            if (e.response && e.response.statusText === 'Too Many Requests') {
+                return 429;
+            } else {
+                return 404;
             }
-            return await Page.cherrio_load(url, ++tries);
         }
     }
 
@@ -117,7 +118,7 @@ class Page {
 
         // Page.save_to_file(url.split('/').pop(), html);
 
-        return Page.parse_to_jquery(html);
+        return (typeof html) === 'number' ? html : Page.parse_to_jquery(html);
     }
 }
 

@@ -69,6 +69,25 @@ const task = ({
 
         const $ = await Page.run(method)(url);
 
+        if ((typeof $) === 'number') {
+            if ($ === 429) {
+                await taskModel.updateOne({
+                    url
+                }, {
+                    status: 'waiting',
+                })
+            } else if ($ === 404) {
+                await taskModel.updateOne({
+                    url
+                }, {
+                    status: 'error',
+                    type: -1
+                })
+            }
+
+            return;
+        }
+
         const handle = require(handleTarget.handle);
 
         const {
@@ -77,27 +96,6 @@ const task = ({
             product_info,
             product_links,
         } = handle($, url);
-
-        const checkTaskTarget = async (target) => {
-            const oldDocument = await taskModel.findOne({
-                url: target.url
-            });
-
-            if (oldDocument) return;
-
-            try {
-                const data = new taskModel({
-                    url: target.url,
-                    category: target.category
-                });
-
-                await data.save();
-            } catch {
-                console.log('> error for new model (task)');
-            }
-
-            return;
-        }
 
         const filterTaskTarget = async (url) => {
             const oldDocument = await taskModel.findOne({
@@ -173,6 +171,6 @@ const task = ({
         }, {
             upsert: true
         })
-}
-    
+    }
+
 module.exports = task;
