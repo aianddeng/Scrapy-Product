@@ -28,7 +28,7 @@ class Page {
     }
 
     // just use request catch code.
-    static async cherrio_load(url, tries = 1) {
+    static async cherrio_load(url) {
         try {
             const { data } = await axios.get(url, Object.assign({}, {
                 headers: {
@@ -44,7 +44,7 @@ class Page {
 
             return data;
         } catch (e) {
-            console.error(`Error: ${e.code || e.response && e.response.statusText} <${tries}>`);
+            console.error(`Error: ${e.code || e.response && e.response.statusText}`);
 
             if (e.response && e.response.statusText === 'Too Many Requests') {
                 return 429;
@@ -55,7 +55,7 @@ class Page {
     }
 
     // use fake browser to load data.
-    static async puppeteer_load(url, tries = 1) {
+    static async puppeteer_load(url) {
         if (!Page.browser && !Page.browser_status) {
             Page.browser_status = 'loading';
             Page.browser = await puppeteer.launch({
@@ -81,15 +81,11 @@ class Page {
             await page.setUserAgent('"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_3_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.72 Safari/537.36 Edg/89.0.774.45"');
             // await useProxy(page, urlProxy.url);
             await page.goto(url, {
-                timeout: 30 * 1000,
+                timeout: 60 * 1000,
                 waitUntil: 'domcontentloaded'
             });
         } catch (e) {
-            console.error(`Error: ${e.code} <${tries}>`);
-            if (tries === 3) {
-                return '<div>NOT FOUND</div>';
-            }
-            await new Promise(resolve => setTimeout(resolve(), 10000));
+            console.error(`Error: ${e.code}`);
             return 429;
         }
 

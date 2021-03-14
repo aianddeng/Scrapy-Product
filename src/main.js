@@ -1,5 +1,7 @@
 const modelInit = require('./sql/model');
 const task = require('./task');
+const Page = require('./Page');
+const axios = require('axios');
 
 const main = async targets => {
     // 初始化数据模型
@@ -72,8 +74,8 @@ const main = async targets => {
         while (taskList.length + oldTaskList.length) {
             // 限制并发数量
             const currentList = oldTaskList.length
-                ? oldTaskList.splice(0, 5)
-                : taskList.splice(0, 5);
+                ? oldTaskList.splice(0, 15)
+                : taskList.reverse().splice(0, 15);
 
             // 改变状态
             await taskModel.updateMany({
@@ -85,25 +87,32 @@ const main = async targets => {
             })
 
             // 抛出异步任务
-            const currentTask = currentList.map(
+            currentList.map(
                 el => task(el)({
                     taskModel,
                     infoModel
                 })
             );
 
-            // axios请求间隔一秒，puppeteer请求间隔每个再加1.5秒。
-            const uiTask = currentList.map(
-                el => el.url
-            ).filter(
-                url => url.match(/^https:\/\/www\.ebay\.com\/(b|sch)\/(.+)/)
-            );
-
-            if (uiTask.length) {
-                await Promise.all(currentTask);
-            } else {
-                await new Promise(resolve => setTimeout(resolve, 1 * 1000));
-            }
+            await new Promise(resolve => setInterval(() => {
+                try {
+                    axios.get('http://api.scraperapi.com/account', {
+                        params: {
+                            api_key: '187d1f8d2644e4d26d42aa2f6db1ff11'
+                        },
+                    }).then((res) => {
+                        if (res.data.concurrentRequests < res.data.concurrencyLimit) {
+                            if (Page.browser) {
+                                Page.browser.pages().then(activePage => {
+                                    activePage.length < 5 && resolve(true);
+                                })
+                            } else {
+                                resolve(true);
+                            }
+                        }
+                    })
+                } catch { }
+            }, 1000));
         }
     }
 }
