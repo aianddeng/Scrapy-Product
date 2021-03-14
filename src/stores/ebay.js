@@ -20,11 +20,11 @@ const getLink = ($, url) => {
 
 const getProduct = ($, url) => {
     const product_info = {
-        name: $('head>title').text().trim(),
+        name: $('head>title').text() && $('head>title').text().trim(),
         description: [
             $('.app-item-description__body--text').first().text(),
             $('.item-desc .item-snippet.short').first().text(),
-            $('[name=description]').attr('content').trim()
+            $('[name=description]').attr('content') && $('[name=description]').attr('content').trim()
         ].filter(Boolean).shift(),
         path: [
             ...$('#bc a [itemprop=name]').get().map(

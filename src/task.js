@@ -117,6 +117,8 @@ const task = ({
                     url: target.url,
                     category: target.category,
                     ...product_info,
+                }, {
+                    ordered: false
                 });
 
                 await data.save();
