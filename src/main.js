@@ -72,8 +72,8 @@ const main = async targets => {
         while (taskList.length + oldTaskList.length) {
             // 限制并发数量
             const currentList = oldTaskList.length
-                ? oldTaskList.splice(0, 4)
-                : taskList.splice(0, 4);
+                ? oldTaskList.splice(0, 5)
+                : taskList.splice(0, 5);
 
             // 改变状态
             await taskModel.updateMany({
@@ -85,7 +85,7 @@ const main = async targets => {
             })
 
             // 抛出异步任务
-            currentList.map(
+            const currentTask = currentList.map(
                 el => task(el)({
                     taskModel,
                     infoModel
@@ -99,7 +99,11 @@ const main = async targets => {
                 url => url.match(/^https:\/\/www\.ebay\.com\/(b|sch)\/(.+)/)
             );
 
-            await new Promise(resolve => setTimeout(resolve, 1 * 1000 + (uiTask.length * 1.5) * 1000));
+            if (uiTask.length) {
+                await Promise.all(currentTask);
+            } else {
+                await new Promise(resolve => setTimeout(resolve, 1 * 1000));
+            }
         }
     }
 }

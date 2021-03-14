@@ -90,7 +90,7 @@ class Page {
                 return '<div>NOT FOUND</div>';
             }
             await new Promise(resolve => setTimeout(resolve(), 10000));
-            return await Page.puppeteer_load(url, ++tries)
+            return 429;
         }
 
         const data = await page.content();
