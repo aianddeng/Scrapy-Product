@@ -134,6 +134,10 @@ const task = ({
                 product_info
             });
         } else if (product_links) {
+            const product_links = Array.from(new Set(product_links.filter(
+                el => el.startsWith('http')
+            )));
+            
             try {
                 const rightProductLinks = await Promise.all(
                     product_links.filter(
