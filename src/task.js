@@ -134,13 +134,13 @@ const task = ({
                 product_info
             });
         } else if (product_links) {
-            const product_links = Array.from(new Set(product_links.filter(
+            const product_links_filter = Array.from(new Set(product_links.filter(
                 el => el.startsWith('http')
             )));
-            
+
             try {
                 const rightProductLinks = await Promise.all(
-                    product_links.filter(
+                    product_links_filter.filter(
                         el => el.startsWith('http')
                     ).map(
                         filterTaskTarget
