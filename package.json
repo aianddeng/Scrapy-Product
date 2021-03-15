@@ -1,0 +1,18 @@
+{
+  "name": "Scrapy_Api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-cors": "^0.0.16",
+    "koa-router": "^10.0.0",
+    "koa-static": "^5.0.0",
+    "mongoose": "^5.12.0"
+  },
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon app.js"
+  }
+}
