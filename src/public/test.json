@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ESNEXT",
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "outDir": "./dist",
+    "sourceMap": false,
+    "allowJs": false,
+    "newLine": "LF"
+  },
+  "include": ["src/**/*"]
+}
