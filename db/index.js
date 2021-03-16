@@ -1,30 +1,29 @@
+const config = require('../config');
+
 const mongoose = require('mongoose');
 
-(async () => {
-    const base_mongodb_url = 'mongodb://chase:372100@35.194.30.4:29991/ai_scrapy_tasks_new_2?authSource=admin'
+mongoose.Promise = Promise;
 
-    mongoose.Promise = Promise;
+mongoose.connection.on('connected', () => {
+    console.log('MongoDb Connected.');
+});
 
-    mongoose.connection.once('connected', () => {
-        console.log('MongoDb Connected');
-    });
+mongoose.connection.on('disconnected', () => {
+    console.log('MongoDb Disconnected.');
+});
 
-    mongoose.connection.once('disconnected', () => {
-        console.log('MongoDb Disconnected');
-    });
+mongoose.connection.on('error', (err) => {
+    console.log('MongoDb Catch Error.', err);
+});
 
-    mongoose.connection.on('error', (err) => {
-        console.log('MongoDb Catch Error.', err);
-    });
+exports.connect = () => mongoose.connect(
+    config.mongodbUrl, {
+    useUnifiedTopology: true,
+    useFindAndModify: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+}) && mongoose;
 
-    await mongoose.connect(base_mongodb_url, {
-        useUnifiedTopology: true,
-        useFindAndModify: true,
-        useNewUrlParser: true,
-        useCreateIndex: true,
-    })
-})();
+exports.disconnect = () => mongoose.disconnect();
 
-module.exports = mongoose;
-
-
+exports.Schema = mongoose.Schema;
