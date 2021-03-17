@@ -20,5 +20,10 @@
   },
   "devDependencies": {
     "@types/tunnel": "^0.0.2"
+  },
+  "scripts": {
+    "start": "pm2 start src --name Scrapy --watch",
+    "save-dev": "NODE_ENV=development node src/toExcel.js",
+    "save": "node src/toExcel.js"
   }
 }
