@@ -35,7 +35,7 @@ class Helpers {
         })
     }
 
-    static async writeToExcel(data) {
+    static async writeToExcel(data, path = `./Products.xls`) {
         console.log(
             Object.keys(data)
         );
@@ -55,7 +55,7 @@ class Helpers {
             })
         );
 
-        await new Promise(resolve => fs.writeFile(`./Products.xls`, xlsx.build(buffer), (err) => {
+        await new Promise(resolve => fs.writeFile(path, xlsx.build(buffer), (err) => {
             if (err) throw err;
             console.log('Write to xlsx finished');
             resolve(true);
