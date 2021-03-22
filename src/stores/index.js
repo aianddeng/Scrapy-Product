@@ -11,6 +11,12 @@ const hanleCollect = [
             'www.ebay.com'
         ],
         handle: basePath + 'ebay' + '.js'
+    },
+    {
+        origin: [
+            'www.amazon.com'
+        ],
+        handle: basePath + 'amazon' + '.js'
     }
 ]
 

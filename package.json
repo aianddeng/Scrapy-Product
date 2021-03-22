@@ -23,7 +23,8 @@
   },
   "scripts": {
     "start": "pm2 start src --name Scrapy --watch",
-    "save-dev": "NODE_ENV=development node src/toExcel.js",
-    "save": "node src/toExcel.js"
+    "start-dev": "NODE_ENV=development node src",
+    "save": "node src/toExcel.js",
+    "save-dev": "NODE_ENV=development node src/toExcel.js"
   }
 }

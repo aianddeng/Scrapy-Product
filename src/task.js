@@ -60,7 +60,7 @@ const task = ({
         // 选择方法
         let method = null;
         if (
-            url.match(/^https:\/\/www\.ebay\.com\/(b|sch)\/(.+)/)
+            !url.match(/^https:\/\/www\.amazon\.com\/s\?(.+)/)
         ) {
             method = METHOD.PUPPETEER
         } else {

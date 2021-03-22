@@ -74,8 +74,8 @@ const main = async targets => {
         while (taskList.length + oldTaskList.length) {
             // 限制并发数量
             const currentList = oldTaskList.length
-                ? oldTaskList.splice(0, 10)
-                : taskList.reverse().splice(0, 10);
+                ? oldTaskList.splice(0, 5)
+                : taskList.splice(0, 5);
 
             // 改变状态
             await taskModel.updateMany({
@@ -94,17 +94,20 @@ const main = async targets => {
                 })
             );
 
-            await new Promise(resolve => {
-                const timer = setInterval(() => {
-                    if (Page.browser) {
-                        Page.browser.pages().then(activePage => {
-                            if (activePage.length > 5) return;
-                        })
+            const checkPageLength = async () => {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                if (Page.browser) {
+                    const pages = await Page.browser.pages();
+                    if (pages.length > 5) {
+                        return await checkPageLength();
                     }
-                    clearInterval(timer);
-                    resolve(true);
-                }, 200)
-            })
+                }
+
+                return;
+            }
+
+            await checkPageLength();
         }
     }
 }

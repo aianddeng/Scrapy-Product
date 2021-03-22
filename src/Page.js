@@ -37,9 +37,9 @@ class Page {
                 maxRedirects: 0,
                 timeout: 60 * 1000
             }, url.startsWith('https') ? {
-                httpsAgent: tunnelProxy,
+                // httpsAgent: tunnelProxy,
             } : {
-                proxy
+                // proxy
             }));
 
             return data;
