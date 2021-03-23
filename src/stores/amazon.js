@@ -19,7 +19,13 @@ const getLink = ($) => {
 const getProduct = ($) => {
     const product_info = {
         name: $('#productTitle').text() && $('#productTitle').text().trim(),
-        description: $('#productDescription').text() && $('#productDescription').text().trim(),
+        description: (
+            $('#productDescription').text() && $('#productDescription').text().trim()
+        ) || (
+            $('#featurebullets_feature_div li').get().map(
+                el => $(el).text()
+            ).concat('').join('. ')
+        ),
         path: $('.a-breadcrumb .a-link-normal').get().map(
             el => $(el).text() && $(el).text().trim()
         )
