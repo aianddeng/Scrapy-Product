@@ -1,4 +1,4 @@
-const tunnel = require('tunnel');
+const tunnel = require('tunnel')
 // const proxyChain = require('proxy-chain');
 // const newproxyUrl = await proxyChain.anonymizeProxy(urlProxy.url);;
 // `--proxy-server=${newproxyUrl}`
@@ -8,25 +8,27 @@ const proxy = {
     port: '8001',
     auth: {
         username: 'scraperapi.country_code=us',
-        password: '187d1f8d2644e4d26d42aa2f6db1ff11'
-    }
+        password: '187d1f8d2644e4d26d42aa2f6db1ff11',
+    },
 }
 
 const tunnelProxy = tunnel.httpsOverHttp({
     proxy: {
         host: 'proxy-server.scraperapi.com',
         port: '8001',
-        proxyAuth: 'scraperapi.country_code=us:187d1f8d2644e4d26d42aa2f6db1ff11'
+        proxyAuth:
+            'scraperapi.country_code=us:187d1f8d2644e4d26d42aa2f6db1ff11',
     },
-    rejectUnauthorized: false
-});
+    rejectUnauthorized: false,
+})
 
 const urlProxy = {
-    url: 'http://scraperapi.country_code=us:187d1f8d2644e4d26d42aa2f6db1ff11@proxy-server.scraperapi.com:8001'
+    url:
+        'http://scraperapi.country_code=us:187d1f8d2644e4d26d42aa2f6db1ff11@proxy-server.scraperapi.com:8001',
 }
 
 module.exports = {
     proxy,
     tunnelProxy,
-    urlProxy
+    urlProxy,
 }

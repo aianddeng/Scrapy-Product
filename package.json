@@ -1,30 +1,30 @@
 {
-  "name": "Scrapy",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "@types/axios": "^0.14.0",
-    "axios": "^0.21.1",
-    "cheerio": "^1.0.0-rc.5",
-    "https": "^1.0.0",
-    "koa": "^2.13.1",
-    "koa-bodyparser": "^4.3.0",
-    "koa-router": "^10.0.0",
-    "mongoose": "^5.11.19",
-    "node-xlsx": "^0.16.1",
-    "proxy-chain": "^0.4.7",
-    "puppeteer": "^8.0.0",
-    "puppeteer-page-proxy": "^1.2.8",
-    "tunnel": "^0.0.6"
-  },
-  "devDependencies": {
-    "@types/tunnel": "^0.0.2"
-  },
-  "scripts": {
-    "start": "pm2 start src --name Scrapy --watch",
-    "start-dev": "NODE_ENV=development node src",
-    "save": "node src/toExcel.js",
-    "save-dev": "NODE_ENV=development node src/toExcel.js"
-  }
+    "name": "scrapy",
+    "version": "1.2.0",
+    "main": "index.js",
+    "license": "MIT",
+    "dependencies": {
+        "@types/axios": "^0.14.0",
+        "axios": "^0.21.1",
+        "cheerio": "^1.0.0-rc.5",
+        "https": "^1.0.0",
+        "koa": "^2.13.1",
+        "koa-bodyparser": "^4.3.0",
+        "koa-router": "^10.0.0",
+        "mongoose": "^5.11.19",
+        "node-xlsx": "^0.16.1",
+        "proxy-chain": "^0.4.7",
+        "puppeteer": "^8.0.0",
+        "puppeteer-page-proxy": "^1.2.8",
+        "tunnel": "^0.0.6"
+    },
+    "devDependencies": {
+        "@types/tunnel": "^0.0.2"
+    },
+    "scripts": {
+        "start": "pm2 start src --name Scrapy --watch",
+        "start-dev": "NODE_ENV=development node src",
+        "save": "node src/toExcel.js",
+        "save-dev": "NODE_ENV=development node src/parse.xlsx.js"
+    }
 }

@@ -1,6 +1,6 @@
 const METHOD = {
     AXIOS: 'axios',
-    PUPPETEER: 'puppeteer'
+    PUPPETEER: 'puppeteer',
 }
 
-module.exports = METHOD;
+module.exports = METHOD
