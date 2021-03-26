@@ -27,8 +27,13 @@ const urlProxy = {
         'http://scraperapi.country_code=us:187d1f8d2644e4d26d42aa2f6db1ff11@proxy-server.scraperapi.com:8001',
 }
 
+const browserConfig = {
+    headless: false,
+}
+
 module.exports = {
     proxy,
     tunnelProxy,
     urlProxy,
+    browserConfig,
 }

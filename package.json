@@ -22,9 +22,9 @@
         "@types/tunnel": "^0.0.2"
     },
     "scripts": {
-        "start": "pm2 start src --name Scrapy --watch",
-        "start-dev": "NODE_ENV=development node src",
-        "save": "node src/toExcel.js",
-        "save-dev": "NODE_ENV=development node src/parse.xlsx.js"
+        "start": "NODE_ENV=production pm2 start src --name Scrapy --watch",
+        "start-dev": "node src",
+        "save": "NODE_ENV=production node src/toExcel.js",
+        "save-dev": "node src/parse.xlsx.js"
     }
 }

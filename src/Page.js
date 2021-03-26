@@ -5,7 +5,12 @@ const useProxy = require('puppeteer-page-proxy')
 const fs = require('fs')
 
 const METHOD = require('./action')
-const { proxy, tunnelProxy, urlProxy } = require('./config/local.base')
+const {
+    proxy,
+    tunnelProxy,
+    urlProxy,
+    browserConfig,
+} = require('./config/local.base')
 
 class Page {
     static browser = null
@@ -24,12 +29,11 @@ class Page {
     }
 
     // just use request catch code.
-    static async cherrio_load(url) {
+    static async cherrio_load(url, isProxyPage) {
         try {
             const { data } = await axios.get(
                 url,
                 Object.assign(
-                    {},
                     {
                         headers: {
                             'user-agent':
@@ -38,13 +42,15 @@ class Page {
                         maxRedirects: 0,
                         timeout: 60 * 1000,
                     },
-                    url.startsWith('https')
-                        ? {
-                              httpsAgent: tunnelProxy,
-                          }
-                        : {
-                              proxy,
-                          }
+                    isProxyPage
+                        ? url.startsWith('https')
+                            ? {
+                                  httpsAgent: tunnelProxy,
+                              }
+                            : {
+                                  proxy,
+                              }
+                        : {}
                 )
             )
 
@@ -75,6 +81,7 @@ class Page {
                     '--ignore-certificate-errors',
                 ],
                 ignoreHTTPSErrors: true,
+                ...browserConfig,
             })
             Page.browser_status = 'loaded'
         }
@@ -106,13 +113,13 @@ class Page {
     }
 
     // 入口方法
-    static run = methodType => async url => {
+    static run = methodType => isProxyPage => async url => {
         console.log('Start scrapy: ', url)
 
         let html = null
         switch (methodType) {
             case METHOD.AXIOS:
-                html = await Page.cherrio_load(url)
+                html = await Page.cherrio_load(url, isProxyPage)
                 break
             case METHOD.PUPPETEER:
                 html = await Page.puppeteer_load(url)

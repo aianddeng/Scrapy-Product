@@ -65,7 +65,9 @@ const task = ({ url, category }) => async ({ taskModel, infoModel }) => {
         ? METHOD.PUPPETEER
         : METHOD.AXIOS
 
-    const $ = await Page.run(method)(url)
+    const isProxyPage = handleTarget.useProxy(url)
+
+    const $ = await Page.run(method)(isProxyPage)(url)
 
     if (typeof $ === 'number') {
         if ($ === 429) {
