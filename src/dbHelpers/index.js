@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 
 const MONGO_URL =
     process.env.NODE_ENV === 'production'
-        ? 'mongodb://localhost:27017/ai_scrapy_tasks_macys'
-        : 'mongodb://chase:372100@localhost:27017/ai_scrapy_tasks_macys?authSource=admin'
+        ? 'mongodb://chase:372100@localhost:27017/ai_scrapy_tasks_macys?authSource=admin'
+        : 'mongodb://localhost:27017/ai_scrapy_tasks_macys'
 
 mongoose.Promise = Promise
 
