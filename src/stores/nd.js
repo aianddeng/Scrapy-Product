@@ -1,10 +1,12 @@
 // const Helpers = require('./Helpers')
 
 const getLink = $ => {
-    const product_links = $([
-        '.product-grid .product-grid__row .product-grid-item a.product-grid-item__details-container',
-        '.pagination .pagination__link',
-    ])
+    const product_links = $(
+        [
+            '.product-grid .product-grid__row .product-grid-item a.product-grid-item__details-container',
+            '.pagination .pagination__link',
+        ].join(',')
+    )
         .get()
         .map(el => 'https://www.nordstromrack.com' + $(el).attr('href'))
 

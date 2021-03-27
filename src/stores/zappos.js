@@ -30,7 +30,7 @@ const handle = $ => {
         }
     } else if (isListPage) {
         const product_links = $(
-            ['#searchPage a[data-style-id]', 'a[rel=next]'].concat(',')
+            ['#searchPage a[data-style-id]', 'a[rel=next]'].join(',')
         )
             .get()
             .map(el => 'https://www.zappos.com' + $(el).attr('href'))

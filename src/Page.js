@@ -98,10 +98,11 @@ class Page {
             )
             // await useProxy(page, urlProxy.url);
             await page.goto(url, {
-                timeout: 60 * 1000,
+                timeout: 120 * 1000,
                 waitUntil: 'networkidle2',
             })
         } catch (e) {
+            await page.close()
             console.error(`Error: ${e.code}`)
             return 429
         }

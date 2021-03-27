@@ -35,7 +35,13 @@ const hanleCollect = [
         origin: ['www.nordstromrack.com'],
         handle: basePath + 'nd' + '.js',
         usePuppeteer: url => !url.match(/https:\/\/www.nordstromrack.com\/s\//),
-        useProxy: () => false,
+        useProxy: () => true,
+    },
+    {
+        origin: ['www.nordstrom.com'],
+        handle: basePath + 'nd2' + '.js',
+        usePuppeteer: url => !url.match(/https:\/\/www.nordstrom.com\/s\//),
+        useProxy: () => true,
     },
 ]
 

@@ -1,9 +1,9 @@
 // const Helpers = require('./Helpers')
 
 const getLink = ($, currentUrl) => {
-    const product_links = $([
-        '.product-grid__products .product-tile__detail-wrapper a',
-    ])
+    const product_links = $(
+        '.product-grid__products .product-tile__detail-wrapper a'
+    )
         .get()
         .map(el => 'https://www.dsw.com' + $(el).attr('href'))
 
