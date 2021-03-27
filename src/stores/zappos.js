@@ -8,8 +8,10 @@ const handle = $ => {
         }
     } else if (isProduct) {
         const product_info = {
-            name: $('#overview h1').text().trim(),
-            description: $('#itemInformation li').text().trim(),
+            name: $('#overview h1').text() && $('#overview h1').text().trim(),
+            description:
+                $('#itemInformation li').text() &&
+                $('#itemInformation li').text().trim(),
             path: $('#breadcrumbs a')
                 .get()
                 .slice(1)
@@ -27,18 +29,17 @@ const handle = $ => {
             }
         }
     } else if (isListPage) {
-        const product_links = $('#searchPage a[data-style-id]')
+        const product_links = $(
+            ['#searchPage a[data-style-id]', 'a[rel=next]'].concat(',')
+        )
             .get()
             .map(el => 'https://www.zappos.com' + $(el).attr('href'))
-            .concat(
-                $('a[rel=next]').first().attr('href')
-                    ? 'https://www.zappos.com' +
-                          $('a[rel=next]').first().attr('href')
-                    : ''
-            )
+            .filter(el => !el.includes('undefined'))
 
-        return {
-            product_links,
+        if (product_links.length) {
+            return {
+                product_links,
+            }
         }
     }
 

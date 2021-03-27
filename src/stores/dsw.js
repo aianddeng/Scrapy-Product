@@ -8,10 +8,12 @@ const getLink = ($, currentUrl) => {
         .map(el => 'https://www.dsw.com' + $(el).attr('href'))
 
     if ($('.pagination-next:not(.disabled)').length) {
-        const url = new URL(currentUrl)
-        const num = (+url.searchParams.get('No') || 1) + 1
-        url.searchParams.set('No', num)
-        product_links.push(url.href)
+        try {
+            const url = new URL(currentUrl)
+            const num = (+url.searchParams.get('No') || 1) + 1
+            url.searchParams.set('No', num)
+            product_links.push(url.href)
+        } catch {}
     }
 
     if (product_links.length) {

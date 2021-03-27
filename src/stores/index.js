@@ -31,6 +31,12 @@ const hanleCollect = [
         usePuppeteer: () => true,
         useProxy: () => false,
     },
+    {
+        origin: ['www.nordstromrack.com'],
+        handle: basePath + 'nd' + '.js',
+        usePuppeteer: url => !url.match(/https:\/\/www.nordstromrack.com\/s\//),
+        useProxy: () => false,
+    },
 ]
 
 module.exports = hanleCollect

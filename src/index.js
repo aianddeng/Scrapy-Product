@@ -4,7 +4,7 @@ const disconnect = require('./dbHelpers')
 
 ;(async () => {
     const targets = Target.loadList().filter(el =>
-        ['dsw', 'macys'].includes(el.store)
+        ['dsw', 'macys', 'ND', 'zappos'].includes(el.store)
     )
 
     console.log(targets)
