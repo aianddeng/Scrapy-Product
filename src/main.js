@@ -104,11 +104,11 @@ const main = async targets => {
             )
 
             const checkPageLength = async () => {
-                await new Promise(resolve => setTimeout(resolve, 1000))
+                await new Promise(resolve => setTimeout(resolve, 1 * 1000))
 
                 if (Page.browser) {
                     const pages = await Page.browser.pages()
-                    if (pages.length > 5) {
+                    if (pages.length >= 5) {
                         return await checkPageLength()
                     }
                 }

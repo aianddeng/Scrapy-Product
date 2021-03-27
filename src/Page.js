@@ -103,7 +103,7 @@ class Page {
             // await useProxy(page, urlProxy.url)
             await page.goto(url, {
                 timeout: 3 * 60 * 1000,
-                waitUntil: 'domcontentloaded',
+                waitUntil: 'networkidle2',
             })
         } catch (e) {
             console.error(`Error: ${e}`)

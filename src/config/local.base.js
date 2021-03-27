@@ -28,7 +28,7 @@ const urlProxy = {
 }
 
 const browserConfig = {
-    headless: false,
+    headless: process.env.NODE_ENV === 'production' ? true : false,
 }
 
 module.exports = {
