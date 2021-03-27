@@ -71,9 +71,8 @@ const main = async targets => {
                 oldTaskList = await taskModel.find({
                     status: 'error',
                 })
-            } else {
-                task_end++
             }
+            task_end++
         } else {
             task_end = 0
         }
@@ -81,8 +80,8 @@ const main = async targets => {
         while (taskList.length + oldTaskList.length) {
             // 限制并发数量
             const currentList = oldTaskList.length
-                ? oldTaskList.splice(0, 5)
-                : taskList.splice(0, 5)
+                ? oldTaskList.reverse().splice(0, 5)
+                : taskList.reverse().splice(0, 5)
 
             // 改变状态
             await taskModel.updateMany(
