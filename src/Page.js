@@ -73,6 +73,10 @@ class Page {
         if (!Page.browser && !Page.browser_status) {
             Page.browser_status = 'loading'
             Page.browser = await puppeteer.launch({
+                defaultViewport: {
+                    width: 0,
+                    height: 0,
+                },
                 headless: true,
                 args: [
                     '--no-sandbox',
@@ -96,14 +100,14 @@ class Page {
             await page.setUserAgent(
                 '"Mozilla/5.0 (Macintosh; Intel Mac OS X 11_3_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.72 Safari/537.36 Edg/89.0.774.45"'
             )
-            // await useProxy(page, urlProxy.url);
+            // await useProxy(page, urlProxy.url)
             await page.goto(url, {
-                timeout: 120 * 1000,
+                timeout: 60 * 1000,
                 waitUntil: 'networkidle2',
             })
         } catch (e) {
             await page.close()
-            console.error(`Error: ${e.code}`)
+            console.error(`Error: ${e}`)
             return 429
         }
 

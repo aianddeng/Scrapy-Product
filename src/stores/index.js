@@ -43,6 +43,24 @@ const hanleCollect = [
         usePuppeteer: url => !url.match(/https:\/\/www.nordstrom.com\/s\//),
         useProxy: () => true,
     },
+    {
+        origin: ['us.shein.com', 'www.shein.com'],
+        handle: basePath + 'shein' + '.js',
+        usePuppeteer: () => true,
+        useProxy: () => false,
+    },
+    {
+        origin: ['www.dillards.com'],
+        handle: basePath + 'dillards' + '.js',
+        usePuppeteer: () => false,
+        useProxy: () => false,
+    },
+    {
+        origin: ['www.lulus.com'],
+        handle: basePath + 'lulus' + '.js',
+        usePuppeteer: url => !url.match(/https:\/\/www.lulus.com\/products\//),
+        useProxy: () => true,
+    },
 ]
 
 module.exports = hanleCollect

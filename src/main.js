@@ -54,8 +54,10 @@ const main = async targets => {
             )
 
             if (task_end > 30) {
+                console.log('wait more that 30/each')
                 break
             } else if (task_end > 10) {
+                console.log('wait more that 10/each')
                 oldTaskList = [
                     ...(await taskModel.find({
                         status: 'doing',
@@ -65,6 +67,7 @@ const main = async targets => {
                     })),
                 ]
             } else if (task_end > 5) {
+                console.log('wait more that 5/each')
                 oldTaskList = await taskModel.find({
                     status: 'error',
                 })

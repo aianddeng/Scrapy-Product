@@ -3,8 +3,10 @@ const Target = require('./tasks')
 const disconnect = require('./dbHelpers')
 
 ;(async () => {
-    const targets = Target.loadList().filter(el =>
-        ['ND', 'zappos', 'dsw', 'macys'].includes(el.store)
+    const targets = Target.loadList().filter(
+        ['dillards', 'dsw', 'lulus', 'macys', 'ND', 'shein', 'zappos'].includes(
+            el.store
+        )
     )
 
     console.log(targets)
