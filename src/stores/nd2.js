@@ -1,5 +1,3 @@
-// const Helpers = require('./Helpers')
-
 const getLink = ($, url) => {
     const currentUrl = new URL(url)
     const product_links = [

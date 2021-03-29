@@ -163,15 +163,25 @@ const task = ({ url, category }) => async ({ taskModel, infoModel }) => {
     }
 
     console.log('Complete the request: ' + url)
-    console.log({
-        error,
-        outOfStock,
-        data: product_info
-            ? product_info.name
-            : product_links
-            ? product_links.length
-            : undefined,
-    })
+    console.log(
+        error || outOfStock
+            ? {
+                  error,
+                  outOfStock,
+                  url,
+                  category,
+              }
+            : {
+                  status: 'success',
+                  type: product_info ? 'product' : 'category',
+                  category,
+                  data: product_info
+                      ? product_info.name
+                      : product_links
+                      ? product_links.length
+                      : null,
+              }
+    )
 
     await taskModel.updateOne(
         {

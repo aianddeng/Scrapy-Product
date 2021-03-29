@@ -1,9 +1,9 @@
 const getLink = ($, currentUrl) => {
     const product_links = $(
-        ['.c-ptf .c-ptf__info', 'a.c-btn--light:contains(NEXT)'].join(',')
+        '.product-tile .product-name .name-link, .pagination a'
     )
         .get()
-        .map(el => 'https://www.lulus.com' + $(el).attr('href'))
+        .map(el => $(el).attr('href'))
 
     if (product_links.length) {
         return {
@@ -19,15 +19,14 @@ const getLink = ($, currentUrl) => {
 const getProduct = $ => {
     const product_info = {
         name:
-            $('h1.c-heading').first().text() &&
-            $('h1.c-heading').first().text().trim(),
+            $('h1.product-name-desc').first().text() &&
+            $('h1.product-name-desc').first().text().trim(),
         description:
-            $('.c-prod__desc>div').first().text() &&
-            $('.c-prod__desc>div').first().text().trim(),
-        path: [
-            $('.c-prod__brand').first().text() &&
-                $('.c-prod__brand').first().text().trim(),
-        ],
+            $('[name=description]').first().attr('content') &&
+            $('[name=description]').first().attr('content').trim(),
+        path: $('.product-detail[data-categorypath]')
+            .attr('data-categorypath')
+            .split('/'),
     }
 
     if (product_info.name && product_info.description && product_info.path) {
@@ -43,8 +42,8 @@ const getProduct = $ => {
 
 const handle = ($, url) => {
     const outOfStock = false
-    const isListPage = $('.c-ptf .c-ptf__info').length
-    const isProduct = $('h1.c-heading').length + $('.c-prod__desc>div').length
+    const isListPage = $('.product-tile .product-name .name-link').length
+    const isProduct = $('h1.product-name-desc').length
 
     if (outOfStock) {
         return {

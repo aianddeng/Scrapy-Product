@@ -1,6 +1,7 @@
 const taskModel = require('./dbHelpers/Task')
 const infoModel = require('./dbHelpers/Info')
 
+const config = require('./config/local.base').taskConfig
 const task = require('./task')
 const Page = require('./Page')
 const axios = require('axios')
@@ -56,7 +57,7 @@ const main = async targets => {
             if (task_end > 30) {
                 console.log('wait more that 30/each')
                 break
-            } else if (task_end > 10) {
+            } else if (task_end > 20) {
                 console.log('wait more that 10/each')
                 oldTaskList = [
                     ...(await taskModel.find({
@@ -66,7 +67,7 @@ const main = async targets => {
                         status: 'error',
                     })),
                 ]
-            } else if (task_end > 5) {
+            } else if (task_end > 10) {
                 console.log('wait more that 5/each')
                 oldTaskList = await taskModel.find({
                     status: 'error',
@@ -79,9 +80,9 @@ const main = async targets => {
 
         while (taskList.length + oldTaskList.length) {
             // 限制并发数量
-            const currentList = oldTaskList.length
-                ? oldTaskList.reverse().splice(0, 5)
-                : taskList.reverse().splice(0, 5)
+            const currentList = (oldTaskList.length ? oldTaskList : taskList)
+                .reverse()
+                .splice(0, config.concurrency)
 
             // 改变状态
             await taskModel.updateMany(
@@ -104,11 +105,11 @@ const main = async targets => {
             )
 
             const checkPageLength = async () => {
-                await new Promise(resolve => setTimeout(resolve, 1 * 1000))
+                await new Promise(resolve => setTimeout(resolve, config.timer))
 
                 if (Page.browser) {
                     const pages = await Page.browser.pages()
-                    if (pages.length >= 5) {
+                    if (pages.length >= config.puppeteer_length) {
                         return await checkPageLength()
                     }
                 }

@@ -1,5 +1,3 @@
-// const Helpers = require('./Helpers')
-
 const getLink = ($, currentUrl) => {
     const product_links = $('.product-tile__detail-wrapper a')
         .get()

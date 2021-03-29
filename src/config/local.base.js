@@ -31,9 +31,16 @@ const browserConfig = {
     headless: process.env.NODE_ENV === 'production' ? true : false,
 }
 
+const taskConfig = {
+    timer: 1 * 1000,
+    concurrency: 5,
+    puppeteer_length: 5,
+}
+
 module.exports = {
     proxy,
     tunnelProxy,
     urlProxy,
     browserConfig,
+    taskConfig,
 }

@@ -61,6 +61,48 @@ const hanleCollect = [
         usePuppeteer: url => !url.match(/https:\/\/www.lulus.com\/products\//),
         useProxy: () => true,
     },
+    {
+        origin: ['www.tinyblessings.com'],
+        handle: basePath + 'tb' + '.js',
+        usePuppeteer: url => false,
+        useProxy: () => false,
+    },
+    {
+        origin: ['www.saksfifthavenue.com'],
+        handle: basePath + 'saks' + '.js',
+        usePuppeteer: url => false,
+        useProxy: () => true,
+    },
+    {
+        origin: ['www.uniqlo.com'],
+        handle: basePath + 'uniqlo' + '.js',
+        usePuppeteer: url => false,
+        useProxy: () => true,
+    },
+    {
+        origin: ['www.coach.com'],
+        handle: basePath + 'coach' + '.js',
+        usePuppeteer: url => false,
+        useProxy: () => true,
+    },
+    {
+        origin: ['www.kipling-usa.com'],
+        handle: basePath + 'kipling' + '.js',
+        usePuppeteer: url => false,
+        useProxy: () => true,
+    },
+    {
+        origin: ['www.asos.com'],
+        handle: basePath + 'asos' + '.js',
+        usePuppeteer: url => false,
+        useProxy: () => true,
+    },
+    {
+        origin: ['www.forever21.com'],
+        handle: basePath + 'f21' + '.js',
+        usePuppeteer: url => false,
+        useProxy: () => true,
+    },
 ]
 
 module.exports = hanleCollect

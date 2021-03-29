@@ -1,9 +1,9 @@
 const getLink = ($, currentUrl) => {
     const product_links = $(
-        ['.c-ptf .c-ptf__info', 'a.c-btn--light:contains(NEXT)'].join(',')
+        '#primary .subCategory .view-all-grid-page a, #search-result-items .product-name a'
     )
         .get()
-        .map(el => 'https://www.lulus.com' + $(el).attr('href'))
+        .map(el => $(el).attr('href'))
 
     if (product_links.length) {
         return {
@@ -19,15 +19,18 @@ const getLink = ($, currentUrl) => {
 const getProduct = $ => {
     const product_info = {
         name:
-            $('h1.c-heading').first().text() &&
-            $('h1.c-heading').first().text().trim(),
+            $('h1 .pdp-name-wrapper').first().text() &&
+            $('h1 .pdp-name-wrapper').first().text().trim(),
         description:
-            $('.c-prod__desc>div').first().text() &&
-            $('.c-prod__desc>div').first().text().trim(),
-        path: [
-            $('.c-prod__brand').first().text() &&
-                $('.c-prod__brand').first().text().trim(),
-        ],
+            $('.pdp-description-wrapper').first().text() &&
+            $('.pdp-description-wrapper').first().text().trim(),
+        path: Array.from(
+            new Set(
+                $('.breadcrumb>a')
+                    .get()
+                    .map(el => $(el).text() && $(el).text().trim())
+            )
+        ),
     }
 
     if (product_info.name && product_info.description && product_info.path) {
@@ -43,8 +46,11 @@ const getProduct = $ => {
 
 const handle = ($, url) => {
     const outOfStock = false
-    const isListPage = $('.c-ptf .c-ptf__info').length
-    const isProduct = $('h1.c-heading').length + $('.c-prod__desc>div').length
+    const isListPage = $(
+        '#primary .subCategory .view-all-grid-page a, #search-result-items .product-name a'
+    ).length
+    const isProduct =
+        $('h1 .pdp-name-wrapper').length + $('.pdp-description-wrapper').length
 
     if (outOfStock) {
         return {

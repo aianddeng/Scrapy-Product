@@ -1,5 +1,3 @@
-// const Helpers = require('./Helpers')
-
 const getLink = ($, currentUrl) => {
     const product_links = $(
         ['.result-tile .result-tile-below .d-block', '.pagination a'].join(',')
