@@ -103,8 +103,19 @@ class Page {
             // await useProxy(page, urlProxy.url)
             await page.goto(url, {
                 timeout: 3 * 60 * 1000,
-                waitUntil: 'networkidle2',
+                waitUntil: 'domcontentloaded',
             })
+
+            const race = await Promise.race([
+                Promise.all([
+                    page.waitForSelector('h1#product-name', { visible: true }),
+                    page.waitForSelector('[itemprop=description]'),
+                    page.waitForSelector('#brand-name', { visible: true }),
+                ]),
+                page.waitForSelector('.product-tile__detail-wrapper a'),
+            ])
+
+            await page.waitFor(1000)
         } catch (e) {
             console.error(`Error: ${e}`)
         }

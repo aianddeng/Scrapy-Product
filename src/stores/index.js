@@ -58,7 +58,7 @@ const hanleCollect = [
     {
         origin: ['www.lulus.com'],
         handle: basePath + 'lulus' + '.js',
-        usePuppeteer: url => !url.match(/https:\/\/www.lulus.com\/products\//),
+        usePuppeteer: url => true,
         useProxy: () => true,
     },
     {

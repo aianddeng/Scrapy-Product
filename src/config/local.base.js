@@ -32,9 +32,9 @@ const browserConfig = {
 }
 
 const taskConfig = {
-    timer: 1 * 1000,
-    concurrency: 5,
-    puppeteer_length: 5,
+    timer: 2 * 1000,
+    concurrency: 1,
+    puppeteer_length: 3,
 }
 
 module.exports = {
